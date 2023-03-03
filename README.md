@@ -1,0 +1,2 @@
+# UNI Hack SMD Group
+The following is a repository for the SMD group in the UNI hack competition. The project aims to create a solar panel array that is able to move around through the use of servo motors. This project will be further subdivided into a mechanical segment, and a software segment. The mechanical portion will involve the connection of an Arduino into multiple servomotors as to allows for 360 degree movement. The software part will allow for manual movement of the Arduino as well as prediction of the best position of the solar panel. 
