@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SMD</title>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <link rel="stylesheet" href="index.css">
+    </head>
+
+    <body>
+        <h1>Test</h1>
+        <canvas id="voltChart"></canvas>
+        <input id="movementCheck" onclick="handleMovCheck()" type="checkbox"></input>
+        <label>Enable Manual Movement</label>
+        <input class="sliders" disabled="true" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="225"></input>
+        <input class="sliders" disabled="true" onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="225"></input>
+    </body>
+
+    <script>
+        const handleMovCheck = () => (
+            Array.from(document.getElementsByClassName('sliders')).forEach(s => (
+                document.getElementById('movementCheck').checked ? s.disabled = false : s.disabled = true
+            ))
+        )
+
+        const handleXServo = () => {
+            // socket.emit()
+            console.log(document.getElementById('xDeg').value)
+        }
+        const handleYServo = () => {
+            if (document.getElementById('movementCheck').checked) {
+                socket.emit()
+                console.log(document.getElementById('yDeg').value)
+            }
+        }
+
+        const chartData = {
+            labels:[...Array(10).keys()],
+            datasets:[{label:'Voltage', data:[...Array(10)].fill(10)}]
+        }
+
+        // socket.on('data', (data) => {
+        //     console.log(data)
+        //     const temp = chartData.datasets[0].data.slice(0).concat({data:data, label:'Get Time or Smth'})
+        //     const chartData = temp.labels.map(l => l+1)
+        // })
+
+        const ctx = document.getElementById('voltChart')
+        new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        })
+
+    </script>
+</html>
