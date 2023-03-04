@@ -9,11 +9,11 @@ const handleYServo = () => {
     }
 }
 
-function change_mode(){
+function change_mode() {
     console.log("Changed")
     const radioButtons = document.querySelectorAll('input[name="control_mode"]');
     control_div = document.getElementById('controls_div')
-    if (radioButtons[0].checked){
+    if (radioButtons[0].checked) {
         document.getElementById('autoControls').style.display = 'none'
         document.getElementById('manualControls').style.display = 'block'
     }
@@ -24,7 +24,7 @@ function change_mode(){
 }
 
 const getLocation = () => (
-    new Promise((res,rej) => navigator.geolocation.getCurrentPosition(res,rej))
+    new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej))
 )
 
 // const getLocation = () => (
@@ -44,10 +44,26 @@ const getLocation = () => (
 //     }).then(response => response.json()).then(json => console.log(json))
 // }
 
+function handle_time_input() {
+    document.getElementById('time_input') .disabled = document.getElementById("time_check").checked
+    set_current_time()
+}
 
-function set_current_time(){
-    const current = new Date()
-    const tzoff = current.getTimezoneOffset() * 60000
-    const ISO_time = new Date(current - tzoff).toISOString().slice(0,-1)
-    document.getElementById('time_input').value = ISO_time
+
+
+function set_current_time() {
+    time_input = document.getElementById('time_input')
+    if (document.getElementById("time_check").checked) {
+        const current = new Date()
+        const tzoff = current.getTimezoneOffset() * 60000
+        const ISO_time = new Date(current - tzoff).toISOString().slice(0, -3)
+        time_input.value = ISO_time
+    }
+}
+
+if (typeof window !== 'undefined') {
+    window.onload = () => {
+        window.setInterval(set_current_time, 1000)
+        
+    }
 }
