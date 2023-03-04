@@ -5,3 +5,11 @@ body {
 .sliders {
     width: 100%;
 }
+
+#autoControls {
+    display: none;
+}
+
+#manualControls {
+    display: none;
+}

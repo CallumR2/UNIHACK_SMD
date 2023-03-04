@@ -19,6 +19,14 @@
         <label for="manual">Manual Adjustment</label>
         <input type="radio" id="auto" onclick="change_mode()" name="control_mode">
         <label for="auto">Time Controlled</label>
+        <div id="manualControls">
+            <input class="sliders" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="255"></input>
+            <input class="sliders"onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="255"></input>
+        </div>
+        <div id="autoControls">
+            <input id="time_input" type="datetime-local"></input>
+            <input type="button" onclick='set_current_time()' value='Set to current Time'></input>
+        </div>
     </div>
 
 
