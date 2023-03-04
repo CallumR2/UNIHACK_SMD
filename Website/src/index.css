@@ -13,3 +13,7 @@ body {
 #manualControls {
     display: none;
 }
+
+#constantData {
+    display: none;
+}

@@ -11,7 +11,9 @@
         if (typeof window !== 'undefined') {
             window.onload = () => {
                 getAPILogin().then(res => {document.getElementById('apiTokenDiv').innerHTML = res})
-                getLocation().then(res => {document.getElementById('locationDiv').innerHTML = res})
+                getLocation().then(res => {
+                    document.getElementById('locationDiv').innerHTML = res.coords.latitude + ',' + res.coords.longitude
+                })
                 window.setInterval(set_current_time, 1000)
             }
         }
@@ -21,7 +23,7 @@
 </head>
 
 <body>
-    <h1>Test</h1>
+    <h1>Solar Movement Device Control Panel</h1>
     <canvas id="voltChart"></canvas>
     <label for="control_mode">Pick a control mode:</label>
     <div>
@@ -37,8 +39,8 @@
             <input id="time_input" type="datetime-local"></input>
             <input id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
             <div id="API_Params">
-                <h3 id="azimuth">Angle 1:</h3>
-                <h3>Angle 2:</h3>
+                <div id="azimuth">Azimuth</div>
+                <div id="elevation">Elevation</div>
                 <button onclick="handleSunDirect()">Help Me</button>
             </div>
         </div>
@@ -48,6 +50,7 @@
     <div id="constantData">
         <div id="apiTokenDiv">Test</div>
         <div id="locationDiv">Test</div>
+        <div id="timeInputDiv">Test</div>
     </div>
 </body>
 

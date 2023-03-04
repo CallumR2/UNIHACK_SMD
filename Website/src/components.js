@@ -33,15 +33,19 @@ const getLocation = () => (
 
 const handleSunDirect = () => {
     document.getElementById('azimuth').value = sunDirections(
-        document.getElementById('apiTokenDiv').value,
-        document.getElementById('locationDiv').value,
-        document.getElementById('time_input').value
+        document.getElementById('apiTokenDiv').innerHTML,
+        document.getElementById('locationDiv').innerHTML,
+        document.getElementById('timeInputDiv').innerHTML
     )
 }
 
 const sunDirections = async (apiTok,location,dateTime) => {
-    const url = `api.meteomatics.com/${dateTime}/sun_azimuth:d/${location}/json?access_token=${apiTok}`
-    fetch(url).then(res => res.json()).then(response => console.log(response))
+    const url = `https://api.meteomatics.com/${dateTime}/sun_azimuth:d,sun_elevation:d/${location}/json?access_token=${apiTok}`
+    fetch(url).then(res => res.json()).then(res => {
+        console.log(res.data[0].coordinates[0].dates[0])
+        document.getElementById('azimuth').innerHTML = res.data[0].coordinates[0].dates[0].value
+        document.getElementById('elevation').innerHTML = res.data[1].coordinates[0].dates[0].value
+    }).catch(err => console.log('Sun API failed with error: '+err))
 }
 
 function handle_time_input() {
@@ -55,13 +59,13 @@ function set_current_time() {
         const current = new Date()
         const tzoff = current.getTimezoneOffset() * 60000
         const ISO_time = new Date(current - tzoff).toISOString().slice(0, -3)
-        time_input.value = ISO_time
+        time_input.value = ISO_time.slice(0,-3)+'Z'
+        document.getElementById('timeInputDiv').innerHTML = current.toISOString()
     }
 }
 
 const getAPILogin = async () => (
-    fetch('https://login.meteomatics.com/api/v1/token', {
-        method: 'GET', headers: {'Authorization':'Basic ' + window.btoa('monashuniversity_hay:3bNkBav5L1')}
+    fetch('https://login.meteomatics.com/api/v1/token', {method: 'GET', headers: {'Authorization':'Basic ' + window.btoa('monashuniversity_hay:3bNkBav5L1')}
     }).then((resp) => resp.json()
     ).then((data) => data.access_token
     ).catch((err) => console.log('Signin Error'))
