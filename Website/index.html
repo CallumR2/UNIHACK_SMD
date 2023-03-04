@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>SMD</title>
-        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="components.js"> </script>
-        <link rel="stylesheet" href="index.css">
-        
-    </head>
 
-    <body>
-        <h1>Test</h1>
-        <canvas id="voltChart"></canvas>
-        <input id="movementCheck" onclick="handleMovCheck()" type="checkbox"></input>
-        <label>Enable Manual Movement</label>
-        <input class="sliders" disabled="true" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="255"></input>
-        <input class="sliders" disabled="true" onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="255"></input>
+<head>
+    <title>SMD</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="components.js"> </script>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+    <h1>Test</h1>
+    <canvas id="voltChart"></canvas>
+    <label for="control_mode">Pick a control mode:</label>
+    <div>
+        <input type="radio" id="manual" onclick="change_mode()" name="control_mode">
+        <label for="manual">Manual Adjustment</label>
+        <input type="radio" id="auto" onclick="change_mode()" name="control_mode">
+        <label for="auto">Time Controlled</label>
+    </div>
+
+
+    <div id="controls_div">
         
-    </body>
-    
-    <script src="chart.js"> </script>
+    </div>
+</body>
+
+<script src="chart.js"> </script>
+
 </html>
