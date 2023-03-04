@@ -3,11 +3,21 @@
 
 <head>
     <title>SMD</title>
+    <link rel="stylesheet" href="/index.css">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="components.js"> </script>
-    <link rel="stylesheet" href="index.css">
+    <script>
+        if (typeof window !== 'undefined') {
+            window.onload = () => {
+                getAPILogin().then(res => {document.getElementById('apiTokenDiv').innerHTML = res})
+                getLocation().then(res => {document.getElementById('locationDiv').innerHTML = res})
+                window.setInterval(set_current_time, 1000)
+            }
+        }
 
+
+    </script>
 </head>
 
 <body>
@@ -27,15 +37,17 @@
             <input id="time_input" type="datetime-local"></input>
             <input id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
             <div id="API_Params">
-                <h3>Angle 1:</h3>
+                <h3 id="azimuth">Angle 1:</h3>
                 <h3>Angle 2:</h3>
+                <button onclick="handleSunDirect()">Help Me</button>
             </div>
         </div>
     </div>
 
 
-    <div id="controls_div">
-        
+    <div id="constantData">
+        <div id="apiTokenDiv">Test</div>
+        <div id="locationDiv">Test</div>
     </div>
 </body>
 

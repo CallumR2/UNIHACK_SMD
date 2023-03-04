@@ -31,25 +31,23 @@ const getLocation = () => (
 //     navigator.geolocation.getCurrentPosition(() => document.getElementById())
 // )
 
+const handleSunDirect = () => {
+    document.getElementById('azimuth').value = sunDirections(
+        document.getElementById('apiTokenDiv').value,
+        document.getElementById('locationDiv').value,
+        document.getElementById('time_input').value
+    )
+}
 
-//        const url = `api.meteomatics.com/${dateNow}/t_2m:C/${pos}/json`
-
-// const getLocation = () => {
-
-//     const url = 'api.meteomatics.com/2023-03-04T00:00:00Z--2023-03-07T00:00:00Z:PT1H/t_2m:C/52.520551,13.461804/json'
-//     return fetch(url, {
-//         headers: {
-//             'Authorization':'Basic' + ('monashuniversity_hay:3bNkBav5L1').toString('base64')
-//         }
-//     }).then(response => response.json()).then(json => console.log(json))
-// }
+const sunDirections = async (apiTok,location,dateTime) => {
+    const url = `api.meteomatics.com/${dateTime}/sun_azimuth:d/${location}/json?access_token=${apiTok}`
+    fetch(url).then(res => res.json()).then(response => console.log(response))
+}
 
 function handle_time_input() {
     document.getElementById('time_input') .disabled = document.getElementById("time_check").checked
     set_current_time()
 }
-
-
 
 function set_current_time() {
     time_input = document.getElementById('time_input')
@@ -61,9 +59,10 @@ function set_current_time() {
     }
 }
 
-if (typeof window !== 'undefined') {
-    window.onload = () => {
-        window.setInterval(set_current_time, 1000)
-        
-    }
-}
+const getAPILogin = async () => (
+    fetch('https://login.meteomatics.com/api/v1/token', {
+        method: 'GET', headers: {'Authorization':'Basic ' + window.btoa('monashuniversity_hay:3bNkBav5L1')}
+    }).then((resp) => resp.json()
+    ).then((data) => data.access_token
+    ).catch((err) => console.log('Signin Error'))
+)

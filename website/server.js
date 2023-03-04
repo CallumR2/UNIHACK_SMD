@@ -1,42 +1,51 @@
 var SerialPort = require('serialport');
 var http = require('http');
-var fs = require('fs');
-var index = fs.readFileSync('index.html'); 
+var fs = require('fs')
 
-const parsers = SerialPort.parsers
-const parser = new parsers.Readline({
-    delimeter: '\r\n'
+// const parsers = SerialPort.parsers
+// const parser = new parsers.Readline({
+//     delimeter: '\r\n'
+// })
+
+// const port = new SerialPort('device serial goes here', {
+//     baudRateL: 9600,
+//     dataBits: 8,
+//     paraity: 'none',
+//     stopBits: 1,
+//     flowControl: false
+// })
+
+// port.pipe(parser)
+
+
+
+// const io = require('socket.io').listen(app)
+
+// // Send Data
+// io.on('connection', (socket) => {
+//     socket.on('lights',function(data){
+//         console.log(data)
+//         port.write( data.status )
+//     })
+// })
+
+// // Receive Input
+// parser.on('data', (data) => {
+//     console.log(data)
+//     io.emit('data', data)
+// })
+
+
+const path = require('path')
+const express = require('express')
+const app = express()
+
+app.use(express.static(__dirname + '/src'))
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'))
 })
 
-const port = new SerialPort('device serial goes here', {
-    baudRateL: 9600,
-    dataBits: 8,
-    paraity: 'none',
-    stopBits: 1,
-    flowControl: false
+app.listen(8000, () => {
+    console.log(`Server is running on http://localhost:8000`)
 })
-
-port.pipe(parser)
-
-const app = http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type':'text/html'})
-    res.end(index)
-})
-
-const io = require('socket.io').listen(app)
-
-// Send Data
-io.on('connection', (socket) => {
-    socket.on('lights',function(data){
-        console.log(data)
-        port.write( data.status )
-    })
-})
-
-// Receive Input
-parser.on('data', (data) => {
-    console.log(data)
-    io.emit('data', data)
-})
-
-app.listen(3000)
