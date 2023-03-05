@@ -1,9 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
-    margin: 2% 30%;
-}
-
-.sliders {
-    width: 100%;
+    /* margin: 2% 30%; */
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 }
 
 #autoControls {
@@ -17,3 +17,25 @@ body {
 #constantData {
     display: none;
 }
+
+/*
+.controlModes input {
+    height: 16px;
+    width: 16px;
+    box-shadow: 2rem;
+    margin-left: 20px;
+    accent-color: red;
+    border: 2px solid black;
+}
+
+.controlModes label {
+    margin-right: 20px;
+}
+
+.controlModes {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+} */

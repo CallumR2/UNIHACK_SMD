@@ -3,10 +3,12 @@
 
 <head>
     <title>SMD</title>
-    <link rel="stylesheet" href="/index.css">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="components.js"> </script>
+    <script src="components.js"></script>
+    <link href="./dist/output.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         if (typeof window !== 'undefined') {
             window.onload = () => {
@@ -17,32 +19,50 @@
                 window.setInterval(set_current_time, 1000)
             }
         }
-
-
     </script>
+    <style>
+        body {
+            margin: 2% 30%;
+            font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+        }
+
+        #autoControls {
+            display: none;
+        }
+
+        #manualControls {
+            display: none;
+        }
+
+        #constantData {
+            display: none;
+        }
+    </style>
 </head>
 
-<body>
-    <h1>Solar Movement Device Control Panel</h1>
+<body class="mx-96 my-8">
+    <h1 class="text-2xl">Solar Movement Device Control Panel</h1>
     <canvas id="voltChart"></canvas>
-    <label for="control_mode">Pick a control mode:</label>
-    <div>
-        <input type="radio" id="manual" onclick="change_mode()" name="control_mode">
+    <div class="flex justify-center">
+        <!-- <label for="control_mode">Pick a control mode:</label> -->
+        <input class="h-4 w-4 shadow-md ml-5 radio"x type="radio" id="manual" onclick="change_mode()" name="control_mode">
         <label for="manual">Manual Adjustment</label>
-        <input type="radio" id="auto" onclick="change_mode()" name="control_mode">
-        <label for="auto">Time Controlled</label>
-        <div id="manualControls">
-            <input class="sliders" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="255"></input>
-            <input class="sliders"onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="255"></input>
-        </div>
-        <div id="autoControls">
-            <input id="time_input" type="datetime-local"></input>
-            <input id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
-            <div id="API_Params">
-                <div id="azimuth">Azimuth</div>
-                <div id="elevation">Elevation</div>
-                <button onclick="handleSunDirect()">Help Me</button>
-            </div>
+        <input class="h-4 w-4 shadow-md ml-5 radio" type="radio" id="auto" onclick="change_mode()" name="control_mode">
+        <label for="auto">Time Controlled</label>    
+    </div>
+    
+    <div id="manualControls">
+        <input class="w-full range" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="255"></input>
+        <input class="w-full range" onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="255"></input>
+    </div>
+
+    <div id="autoControls">
+        <input class="input" id="time_input" type="datetime-local"></input>
+        <input class="checkbox" id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
+        <div id="API_Params">
+            <div id="azimuth">Azimuth:</div>
+            <div id="elevation">Elevation:</div>
+            <button onclick="handleSunDirect()">Help Me</button>
         </div>
     </div>
 
@@ -50,7 +70,6 @@
     <div id="constantData">
         <div id="apiTokenDiv">Test</div>
         <div id="locationDiv">Test</div>
-        <div id="timeInputDiv">Test</div>
     </div>
 </body>
 
