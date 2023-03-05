@@ -1,15 +1,11 @@
 const handleXServo = () => {
-    // socket.emit()
-    console.log(document.getElementById('xDeg').value)
-    document.getElementById('aziVal').innerHTML = document.getElementById('xDeg').value
+    document.getElementById('aziVal').innerHTML = document.getElementById('xDeg').value + '&deg'
 }
 const handleYServo = () => {
-    console.log(document.getElementById('yDeg').value)
-    document.getElementById('elevVal').innerHTML = document.getElementById('yDeg').value
+    document.getElementById('elevVal').innerHTML = document.getElementById('yDeg').value + '&deg'
 }
 
 function change_mode() {
-    console.log("Changed")
     const radioButtons = document.querySelectorAll('input[name="control_mode"]');
     control_div = document.getElementById('controls_div')
     if (radioButtons[0].checked) {
@@ -26,10 +22,6 @@ const getLocation = () => (
     new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej))
 )
 
-// const getLocation = () => (
-//     navigator.geolocation.getCurrentPosition(() => document.getElementById())
-// )
-
 const handleSunDirect = () => {
     
     document.getElementById('azimuth').value = sunDirections(
@@ -42,9 +34,8 @@ const handleSunDirect = () => {
 const sunDirections = async (apiTok,location,dateTime) => {
     const url = `https://api.meteomatics.com/${dateTime}/sun_azimuth:d,sun_elevation:d/${location}/json?access_token=${apiTok}`
     fetch(url).then(res => res.json()).then(res => {
-        console.log(res.data[0].coordinates[0].dates[0])
-        document.getElementById('azimuth').innerHTML = "Azimuth: " + res.data[0].coordinates[0].dates[0].value
-        document.getElementById('elevation').innerHTML = "Elevation: " + res.data[1].coordinates[0].dates[0].value
+        document.getElementById('azimuth').innerHTML = "Azimuth: " + res.data[0].coordinates[0].dates[0].value + '&deg'
+        document.getElementById('elevation').innerHTML = "Elevation: " + res.data[1].coordinates[0].dates[0].value + '&deg'
     }).catch(err => console.log('Sun API failed with error: '+err))
 }
 
@@ -61,7 +52,6 @@ function set_current_time() {
         const tzoff = current.getTimezoneOffset() * 60000
         const ISO_time = new Date(current - tzoff).toISOString().slice(0, -3)
         time_input.value = ISO_time.slice(0,-2)
-        console.log(ISO_time.slice(0,-2))
     }
 }
 

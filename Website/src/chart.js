@@ -9,6 +9,8 @@ const chartData = {
 //     const chartData = temp.labels.map(l => l+1)
 // })
 
+
+
 const ctx = document.getElementById('voltChart')
 new Chart(ctx, {
     type: 'line',
@@ -18,6 +20,20 @@ new Chart(ctx, {
         plugins: {
             legend: {
                 position: 'top',
+            }
+        },
+        scales:{
+            y: {
+                title: {
+                  display: true,
+                  text: 'Power (Watts)'
+                }
+            },
+            x: {
+                title: {
+                  display: true,
+                  text: 'Time (Sec)'
+                }
             }
         }
     }
