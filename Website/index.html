@@ -42,36 +42,47 @@
 
 <body class="mx-96 my-8">
     <h1 class="text-2xl">Solar Movement Device Control Panel</h1>
-    <canvas class="pb-4" id="voltChart"></canvas>
-    <div class="grid grid-cols-2">
+    <canvas class="" id="voltChart"></canvas>
+    <div class="grid grid-cols-2 p-4">
         <!-- <label for="control_mode">Pick a control mode:</label> -->
         <div class="flex justify-center">
-            <input class="h-4 w-4 shadow-md ml-5 radio align-top inline-block" type="radio" id="manual" onclick="change_mode()" name="control_mode">
-            <label class="pl-2 text-lg align-top inline-block" for="manual">Manual Adjustment</label>
+            <input class="radio-sm shadow-md ml-5 radio flex align-middle" type="radio" id="manual" onclick="change_mode()" name="control_mode">
+            <label class="pl-2 text-md align-top inline-block" for="manual">Manual Adjustment</label>
         </div>
         <div class="flex justify-center">
-            <input class="h-4 w-4 shadow-md ml-5 radio align-middle inline-block" type="radio" id="auto" onclick="change_mode()" name="control_mode">
-            <label class="pl-2 text-lg align-top inline-block" for="auto">Time Controlled</label>    
+            <input class="radio-sm shadow-md ml-5 radio flex align-middle" type="radio" id="auto" onclick="change_mode()" name="control_mode">
+            <label class="pl-2 text-md align-top inline-block" for="auto">Time Controlled</label>    
         </div>
     </div>
     
     <div id="manualControls">
-        <input class="w-full range" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="255"></input>
-        <input class="w-full range" onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="255"></input>
+        <div>Azimuth</div>
+        <div class="pb-2">
+            <input class="w-4/5 range m-2" onmouseup="handleXServo()" id="xDeg" type="range" min="0" max="360"></input>
+            <span class="bg-gray-100 rounded pb-1 px-4 h-full bottom-2 relative" id="aziVal">180</span>
+        </div>
+        <div>Elevation</div>
+        <div class="pb-2">
+            <input class="w-4/5 range m-2" onmouseup="handleYServo()" id="yDeg" type="range" min="0" max="90"></input>
+            <span class="bg-gray-100 rounded pb-1 px-4 h-full bottom-2 relative" id="elevVal">45</span>
+        </div>
+        
     </div>
 
     <div id="autoControls">
-        <div class="grid grid-cols-3">
-            <div class="flex label justify-center">
-                <span>Location: </span>
-                <span class="" id="locationDiv">...</span>
+        <div class="grid grid-cols-2">
+            <div class="flex label justify-center h-full">
+                <div class="bg-gray-100 rounded px-4 py-2">
+                    <span>Location: </span>
+                    <span  id="locationDiv">...</span>
+                </div>
             </div>
             
-            <div class="flex justify-center col-span-2 ">
+            <div class="flex justify-center">
                 <div class="flex align-middle">
-                    <input class="" id="time_input" type="datetime-local"></input>
+                    <input class="bg-gray-100 rounded px-2 py-0 h-10 mt-2" id="time_input" type="datetime-local"></input>
                 </div>
-                <input class="checkbox checkbox-md mt-3" id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
+                <input class="checkbox checkbox-md mt-4 mx-2" id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
             </div>
         </div>
         

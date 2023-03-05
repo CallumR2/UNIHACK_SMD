@@ -1,12 +1,11 @@
 const handleXServo = () => {
     // socket.emit()
     console.log(document.getElementById('xDeg').value)
+    document.getElementById('aziVal').innerHTML = document.getElementById('xDeg').value
 }
 const handleYServo = () => {
-    if (document.getElementById('movementCheck').checked) {
-        socket.emit()
-        console.log(document.getElementById('yDeg').value)
-    }
+    console.log(document.getElementById('yDeg').value)
+    document.getElementById('elevVal').innerHTML = document.getElementById('yDeg').value
 }
 
 function change_mode() {
