@@ -1,6 +1,6 @@
 const chartData = {
     labels:[...Array(10).keys()],
-    datasets:[{label:'Power', data:[]}]
+    datasets:[{label:'Power', data:[1.3,1.4,1.6,1.3,1.2,1.1,1.4,1.6,1.7,1.4]}]
 }
 
 // socket.on('data', (data) => {

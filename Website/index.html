@@ -14,7 +14,7 @@
             window.onload = () => {
                 getAPILogin().then(res => {document.getElementById('apiTokenDiv').innerHTML = res})
                 getLocation().then(res => {
-                    document.getElementById('locationDiv').innerHTML = res.coords.latitude + ',' + res.coords.longitude
+                    document.getElementById('locationDiv').innerHTML = res.coords.latitude.toFixed(3) + ',' + res.coords.longitude.toFixed(3)
                 })
                 window.setInterval(set_current_time, 1000)
             }
@@ -42,13 +42,17 @@
 
 <body class="mx-96 my-8">
     <h1 class="text-2xl">Solar Movement Device Control Panel</h1>
-    <canvas id="voltChart"></canvas>
-    <div class="flex justify-center">
+    <canvas class="pb-4" id="voltChart"></canvas>
+    <div class="grid grid-cols-2">
         <!-- <label for="control_mode">Pick a control mode:</label> -->
-        <input class="h-4 w-4 shadow-md ml-5 radio"x type="radio" id="manual" onclick="change_mode()" name="control_mode">
-        <label for="manual">Manual Adjustment</label>
-        <input class="h-4 w-4 shadow-md ml-5 radio" type="radio" id="auto" onclick="change_mode()" name="control_mode">
-        <label for="auto">Time Controlled</label>    
+        <div class="flex justify-center">
+            <input class="h-4 w-4 shadow-md ml-5 radio align-top inline-block" type="radio" id="manual" onclick="change_mode()" name="control_mode">
+            <label class="pl-2 text-lg align-top inline-block" for="manual">Manual Adjustment</label>
+        </div>
+        <div class="flex justify-center">
+            <input class="h-4 w-4 shadow-md ml-5 radio align-middle inline-block" type="radio" id="auto" onclick="change_mode()" name="control_mode">
+            <label class="pl-2 text-lg align-top inline-block" for="auto">Time Controlled</label>    
+        </div>
     </div>
     
     <div id="manualControls">
@@ -57,8 +61,20 @@
     </div>
 
     <div id="autoControls">
-        <input class="input" id="time_input" type="datetime-local"></input>
-        <input class="checkbox" id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
+        <div class="grid grid-cols-3">
+            <div class="flex label justify-center">
+                <span>Location: </span>
+                <span class="" id="locationDiv">...</span>
+            </div>
+            
+            <div class="flex justify-center col-span-2 ">
+                <div class="flex align-middle">
+                    <input class="" id="time_input" type="datetime-local"></input>
+                </div>
+                <input class="checkbox checkbox-md mt-3" id="time_check" type="checkbox" onclick='handle_time_input()' value='Set to current Time'></input>
+            </div>
+        </div>
+        
         <div id="API_Params">
             <div id="azimuth">Azimuth:</div>
             <div id="elevation">Elevation:</div>
@@ -69,7 +85,6 @@
 
     <div id="constantData">
         <div id="apiTokenDiv">Test</div>
-        <div id="locationDiv">Test</div>
     </div>
 </body>
 
